@@ -1,0 +1,3 @@
+<http://dbpedia.org/resource/Ismael_RodrU+00EDguez_HernU+00E1ndez> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Person>
+<http://dbpedia.org/resource/Instituto_TecnolU+00F3gico_de_Massachussets> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/University>
+<http://dbpedia.org/resource/Ismael_RodrU+00EDguez_HernU+00E1ndez> <http://dbpedia.org/ontology/almaMater> <http://dbpedia.org/resource/Instituto_TecnolU+00F3gico_de_Massachussets>
