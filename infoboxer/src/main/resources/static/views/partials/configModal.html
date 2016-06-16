@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <h3>{{'CONFIGURATION' | translate}}</h3>
+</div>
+<div class="modal-body">
+    <p>{{'CONFIG_MESSAGE' | translate}}</p>
+</div>
+
+
+<div>
+
+
+    <div class="btn-group" data-toggle="buttons">
+        <p style="float:left; margin-left:10px; margin-right:10px; padding-top:7px; width:150px;"><b>{{'INTERFACE_LANGUAGE'
+            | translate}}</b></p>
+        <label class="btn btn-default " ng-class="{'active': language == 'es'}"
+               ng-click="language='es'">
+            <input type="radio" value="es" checked>
+            Español </label>
+        <label class="btn btn-default" ng-class="{'active': language == 'en'}"
+               ng-click="language='en'">
+            <input type="radio" value="en">
+            English </label>
+
+    </div>
+    <div class="btn-group" data-toggle="buttons">
+        <p style="float:left; margin-left:10px; margin-right:10px; padding-top:7px; width:150px;"><b>{{'INTERFACE_MODE'
+            | translate}}</b></p>
+        <label class="btn btn-default " ng-class="{'active': !complex}"
+               ng-click="complex=false">
+            <input type="radio" value="es" checked>
+            {{'SIMPLE' | translate}} </label>
+        <label class="btn btn-default" ng-class="{'active': complex}"
+               ng-click="complex=true">
+            <input type="radio" value="en">
+            {{'COMPLEX' | translate}} </label>
+
+    </div>
+    <div class="btn-group" data-toggle="buttons">
+        <p style="float:left; margin-left:10px; margin-right:10px; padding-top:7px; width:150px;"><b>{{'PROPERTIES_MODE'
+            | translate}}</b></p>
+        <label class="btn btn-default" ng-class="{'active': semantic}"
+               ng-click="semantic=true">
+            <input type="radio" value="en">
+            {{'STATISTIC_AND_SEMANTIC' | translate}} </label>
+        <label class="btn btn-default " ng-class="{'active': !semantic}"
+               ng-click="semantic=false">
+            <input type="radio" value="es" checked>
+            {{'ONLY_STATISTIC' | translate}} </label>
+
+
+    </div>
+
+</div>
+
+
+<p style="margin:5px;padding:5px;text-size:20px;">{{'CONFIG_FOOTER' | translate}}</p>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger"
+            data-ng-click="modalOptions.close()">{{'CANCEL' | translate}}
+    </button>
+    <button type="button" class="btn btn-success"
+            data-ng-click="saveChanges()">{{'SAVE_AND_APPLY' | translate}}
+    </button>
+</div>
+
+
+</div>

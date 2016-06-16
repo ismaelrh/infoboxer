@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'application'
+jar {
+    baseName = 'infoboxer-backend'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile 'edu.stanford.protege:org.semanticweb.owl.owlapi:3.4.4'
+    compile 'com.hermit-reasoner:org.semanticweb.hermit:1.3.8.1'
+    compile 'com.google.code.gson:gson:1.7.2'
+    compile 'mysql:mysql-connector-java:5.1.13'
+    // http://mvnrepository.com/artifact/org.apache.ant/ant
+    compile group: 'org.apache.ant', name: 'ant', version: '1.9.7'
+    compile group: 'com.google.guava', name: 'guava', version: '11.0.2'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+
+
+    compile files('libs/DLQueryEngine.jar')
+    testCompile("junit:junit")
+}
+
+mainClassName = 'infoboxer.backend.Application'
+//Used for correct management of spanish characters
+applicationDefaultJvmArgs = ["-Dfile.encoding=UTF8"]
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
+}

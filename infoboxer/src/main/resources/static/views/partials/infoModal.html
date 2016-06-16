@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h3>{{modalOptions.headerText}}</h3>
+</div>
+<div class="modal-body">
+  <pre>{{modalOptions.bodyText}}</p>
+</div>
+<p style="margin:5px;padding:5px;text-size:20px;">{{modalOptions.footerText}}</p>
+<div class="modal-footer">
+  <button type="button" class="btn"
+          data-ng-click="modalOptions.close()">{{modalOptions.closeButtonText}}</button>
+</div>
+
+
+<!-- RDF Export screen -->
+<div class="modal-body" ng-show="modalOptions.mode==0">
+	<div class="survey-message">{{modalOptions.infobox_export_screen.message}}</div>
+	<div ng-repeat="category in modalOptions.infobox_export_screen.categoryList">
+		<b >Infobox para {{category | typeToCamelCase}}</b>
+		<pre ng-attr-id="{{'infoboxText-' + $index}}"  >{{modalOptions.infobox_export_screen.resultInfoboxList[$index]}}</pre>
+		<button ng-show="modalOptions.mode==0" class="btn btn-primary" style="font-size:120%" ngclipboard data-clipboard-target="#infoboxText-{{$index}}">
+		   <i class="glyphicon glyphicon-copy"  style="font-size:120%"  ></i>
+		   <span   style="font-size:120%">Copiar</span>
+		</button>
+	</div>
+	
+		<!-- Trigger -->
+	<!--<p style="margin:5px;padding:5px;text-size:20px;">{{modalOptions.infobox_export_screen.footer}}</p>-->
+	
+</div>

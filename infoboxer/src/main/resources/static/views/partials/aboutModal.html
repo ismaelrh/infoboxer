@@ -1,0 +1,34 @@
+<div class="modal-header">
+	<h3 class="survey-message">{{modalOptions.about_title}}</h3>
+</div>
+<div class="modal-body">
+	<!-- Universities logos -->
+	<div style="text-align:center;">
+		<img style="max-width:170px; display:inline-block; margin:20px; "ng-src="images/unizar.png"></img>
+		<img style="max-width:150px; display:inline-block; margin:20px;"ng-src="images/umbc.png"></img>
+	</div>
+
+	<!-- Project description -->
+	<br/>
+	{{modalOptions.about_description}}
+	<br/>
+	<br/>
+	<!-- Project integrators -->
+	<strong>{{modalOptions.integrators_unizar_title}}:</strong>
+	<ul>
+	<li>Roberto Yus</li>
+	<li>Raquel Trillo</li>
+	<li>Ismael Rodríguez</li>
+	<li>Eduardo Mena</li>
+	</ul>
+	<strong>{{modalOptions.integrators_umbc_title}}:</strong>
+	<ul>
+	<li>Varish Mulwad</li>
+	<li>Tim Finin</li>
+	</ul>
+</div>
+<p style="margin:5px;padding:5px;text-size:20px;">{{modalOptions.about_more}}</p>
+<div class="modal-footer">
+	<button type="button" class="btn"
+	data-ng-click="modalOptions.close()">{{modalOptions.closeButtonText}}</button>
+</div>

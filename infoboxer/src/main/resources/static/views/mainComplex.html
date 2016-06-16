@@ -1,0 +1,437 @@
+<nav class="navbar-custom navbar-custom-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Infoboxer</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#/app">{{ 'INFOBOXER_CREATION' | translate}} ({{'COMPLEX' | translate}})
+
+                    <span class="sr-only">(current)</span></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <!--<button type="submit" class="btn  navbar-btn" style="margin-right:10px;"
+                        ng-click="main.switchComplex()">{{'VIEW_SIMPLE_MODE' | translate}}
+                </button>-->
+                <button type="submit" class="btn  navbar-btn" style="margin-right:10px;"
+                        ng-click="main.showConfig()"><i class="glyphicon glyphicon-cog"></i> {{'CONFIGURATION' | translate }}
+                </button>
+                <button type="submit" class="btn navbar-btn" style="margin-right:30px;"
+                        ng-click="main.openAboutModal()"><i class="glyphicon glyphicon-info-sign"></i> Info
+                </button>
+                <button type="submit" class="btn btn-success navbar-btn" ng-click="main.resetSession()">{{ 'CREATE_NEW'
+                    | translate}}
+                </button>
+                <button type="submit" class="btn btn-danger navbar-btn" style="margin-right:10px;"
+                        ng-click="main.logout()">{{ 'LOGOUT' | translate}}
+                </button>
+
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="main">
+    <br/>
+    <br/>
+    <alert-list list="main.currentAlerts"></alert-list>
+    <!--<div class="row">
+    <div class="col-md-8">
+    <p class="mainTitle">{{ 'INFOBOXER_LONG_SUBTITLE' | translate}} </p>
+    </div>
+    </div>-->
+
+    <p>{{ 'ENTER_NAME' | translate}}</p>
+
+    <span us-spinner="{radius:20, width:8, length: 24}" spinner-key="spinnerLoading"></span>
+
+    <!--Name of page input -->
+    <div class="input-group" style="max-width:600px">
+        <span class="input-group-addon" >{{ 'PAGE_NAME' | translate}}</span>
+        <input type="text" ng-blur="main.addAction('INPUT PAGE-NAME','OUT-FOCUS',main.pageName)"
+               ng-focus="main.addAction('INPUT PAGE-NAME','IN-FOCUS',main.pageName)" ng-model="main.pageName"
+               class="form-control" placeholder="{{'PAGE_PLACEHOLDER' | translate}}" aria-describedby="sizing-addon1">
+    </div>
+
+
+    <!--  Multicat mode input -->
+    <div ng-show="main.classList.length >= 2" class="input-group" style="max-width:600px;margin-top:7px">
+        <span class="input-group-addon">Multicat mode:</span>
+        <select class="form-control" id="sel1"
+                ng-init="main.currentMode = main.modes[0]"
+                ng-model="main.currentMode"
+                ng-options="mode.name for mode in main.modes">
+        </select>
+    </div>
+    <br/>
+    <!-- Class input panel-->
+    <div class="panel panel-default" style="max-width:600px">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">{{ 'CATEGORIES' | translate}}</h4>
+            <div class="btn-group pull-right">
+                <button ng-click="main.addClassToList()" class="btn btn-success " type="button"
+                        ng-disabled="main.isRestrictedByNumber() && main.classList.length >= main.maxNumberOfCategories()"><i
+                        class="glyphicon glyphicon-plus"></i> {{ 'ADD' | translate}}
+                </button>
+            </div>
+        </div>
+        <!-- Shows textfields --> <!-- Uses repeatable objects -->
+        <div ng-repeat="clase in main.classList track by $index" class="input-group"
+             style="max-width:600px; margin:10px;">
+
+
+
+
+            <input tree-typeahead class="form-control form-control-typeahead"
+                   ng-model="clase.name"  data="main.categories"  category-model="clase" already-entered="main.classList"
+                   ng-focus="main.addAction('INPUT CATEGORY (index ' + $index + ')','IN-FOCUS',clase.name)"
+                   ng-blur="main.addOutFocusValueActionClass('INPUT CATEGORY (index ' + $index + ')','OUT-FOCUS',clase)"/>
+
+
+    <span class="input-group-btn">
+      <!--<button ng-click="clase.value=''" class="btn btn-warning" type="button"><i class="glyphicon glyphicon glyphicon-erase"></i></button>-->
+      <button ng-click="main.removeClassFromList($index)" class="btn btn-danger"
+              type="button"><i class="glyphicon glyphicon glyphicon-remove"></i></button>
+    </span>
+        </div>
+        <button ng-click="main.loadData()" class="btn btn-info pull-right" style="margin-top:10px;"><i
+                class="glyphicon glyphicon-arrow-down"></i>{{ 'LOAD_DATA' | translate}}
+        </button>
+        <span ng-show="main.classList.length==0"><strong>Click on "Add" to add a category</strong></span>
+
+    </div>
+    <i>{{'LOAD_TIME_WARNING' | translate }}</i>
+
+    <div style="width:100%;max-width:600px; display: inline;">
+
+
+    </div>
+    <br/>
+
+    <div ng-show="main.propertyHandlers.length > 0">
+
+
+        <div id="Prop_Team_5_Universal">
+            <div class="col-md-8">
+                <h2>{{ 'PROPERTIES' | translate}}</h2>
+                <hr>
+
+
+
+                <div class="ui-widget"
+                     ng-repeat="handler in main.propertyHandlers |
+      orderBy: ['semantic','-popularity']  | limitTo: main.limit">
+                    <!-- Every property has its table -->
+
+                    <table style="width:100%" class="box-table">
+                        <tbody>
+                        <tr> <!-- NEW ROW -->
+
+                            <td>
+                                <div>
+                                    <!--BOX HEADER-->
+                                    <div class="box-header" id="propertyBox-{{handler.propertyLabel | removeSpaces}}">
+                                        <!--BOX TITLE-->
+                                        <div class="box-title pull-left">
+                                            <i title="{{handler.propertyComment || 'No description'}}">{{
+                                                handler.propertyLabel }} </i>
+                                            <p ng-if="!handler.semantic"
+                                               title="{{handler.instanceCount}}/{{handler.categoriesCount}}"><i>{{handler.popularity
+                                                | twoDecimals }}%</i></p>
+                                            <p ng-if="handler.properties.length  > 1 && !handler.semantic">{{
+                                                'APPEARS_IN' | translate}}</p>
+                                            <p ng-if="handler.properties.length == 1 && !handler.semantic">{{
+                                                'ONLY_APPEARS_IN' | translate}}</p>
+                                            <p ng-if="handler.semantic">{{ 'SEMANTIC_PROPERTY' | translate}} {{
+                                                'USED_BY' | translate }} {{handler.instanceCount}} {{
+                                                'INSTANCES_IN_WHOLE_DATASET' | translate }}</p>
+                                            <p ng-repeat="prop in handler.properties" ng-if="!handler.semantic"
+                                               title="{{prop.instanceCount}}/{{prop.category.categoryCount}} instances">
+                                                <span ng-if="$index > 0">,</span>
+                                                {{prop.category.categoryName}} <span
+                                                    ng-if="!prop.semantic">({{prop.popularity | twoDecimals}}%)</span>
+                                                <span ng-if="prop.semantic">({{'SEMANTIC' | translate}})</span>
+                                            </p>
+
+                                        </div>
+                                        <div class="btn-group pull-right">
+                                            <button ng-click="main.searchGoogle(handler)" style="margin:3px" class="btn"
+                                                    type="button"><span class="glyphicon glyphicon-search"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Appears in... text-->
+
+
+                            </td>
+                        </tr>
+                        <tr> <!-- NEW ROW -->
+                            <td style="padding:7px;">
+
+                                <!-- Repeater for values -->
+                                <div ng-repeat="value in handler.values" class="input-group"
+                                     style="max-width:500px; margin:4px;">
+
+                                    <input type="text" class="form-control form-control-typeahead"
+                                           ng-focus="main.addAction('INPUT PROPERTY ' + handler.propertyURI,'IN-FOCUS',value.text)"
+                                           ng-blur="main.addOutFocusValueAction('INPUT PROPERTY ' + handler.propertyURI,'OUT-FOCUS',value)"
+                                           ng-model="value.text" placeholder="Enter value" sugerencias="main.countries"
+                                           property="handler.propertyURI" ranges-data="main.getRangeData(handler)"
+                                           value="value"/>
+                                    <!-- Add and remove -> only last element (but more than one element) -->
+                <span class="input-group-btn" ng-if="$last && !$first">
+                 <button ng-click="handler.addValue(); main.addedValueField(handler)" class="btn btn-success"
+                         type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                 <button ng-click="handler.removeValue($index) ; main.removedValueField(handler,$index)"
+                         class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                </span>
+
+                                    <!-- Add only -> first and only one  (first and last)-->
+                <span class="input-group-btn" ng-if="$last && $first">
+                 <button ng-click="handler.addValue(); main.addedValueField(handler)" class="btn btn-success"
+                         type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                 
+                </span>
+
+                                    <!-- Remove only -> More than one element, and not the last-->
+                <span class="input-group-btn" ng-if="!$last">
+                 <button ng-click="handler.removeValue($index) ; main.removedValueField(handler,$index)"
+                         class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i></button>
+                </span>
+
+
+                                </div><!-- /input-group -->
+
+                                <br/>
+                            </td>
+                        </tr>
+                        <tr> <!-- NEW ROW -->
+                            <td style="padding-left:7px; padding-right:7px;" >
+                                <!-- Aggregated bar -->
+                                <span class="progress-label" ng-if="handler.properties.length > 1">{{ 'AGGREGATED' | translate}}:</span>
+                                <span class="progress-label" ng-if="handler.properties.length == 1">{{handler.properties[0].category.categoryName}}:</span>
+                                <div class="progress">
+                                    <!--Barra agregada cuando no es semántico -->
+                                    <div class="progress-bar " role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         ng-class="{ 'progress-bar-success': $index==0, 'progress-bar-warning': $index==1,'progress-bar-danger': $index==2 , 'progress-bar-warning': $index==3}"
+                                         ng-repeat="range in handler.ranges |
+                limitTo: 4 | orderBy: '-count'"
+                                         style="width: {{range.count / handler.useCount | fourDecimals }}%;"
+                                         ng-if="!handler.semantic"
+                                         title="{{range.count}}/{{handler.useCount}} uses">
+                                        <!--Aunque se ordene por cuenta, es lo mismo que por popularidad-->
+                                        {{range.label }}({{range.count *100 / handler.useCount | number:0}}%)
+                                    </div>
+                                    <!-- Barra agregada cuando es semántico -->
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         style="width:100%;"
+                                         ng-if="handler.semantic"
+                                         title="{{'EXTRACTED_FROM_SEMANTIC' | translate }}">
+                                        <!--Aunque se ordene por cuenta, es lo mismo que por popularidad-->
+                                        {{handler.rangeForSemantic.label}} ({{'SEMANTIC'|translate}})
+                                    </div>
+                                </div>
+                                <!-- Simple property bars -->
+                                <div ng-repeat="prop in handler.properties" ng-if="handler.properties.length > 1">
+                                    <span class="progress-label">{{prop.category.categoryName }}:</span>
+                                    <div class="progress">
+                                        <div class="progress-bar " role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             ng-class="{ 'progress-bar-success': $index==0, 'progress-bar-warning': $index==1,'progress-bar-danger': $index==2, 'progress-bar-warning': $index==3}"
+                                             ng-repeat="range in prop.ranges |
+                limitTo: 4 | orderBy: '-count'"
+                                             ng-if="!prop.semantic"
+                                             style="width: {{range.count / prop.useCount | fourDecimals }}%;"
+                                             title="{{range.count}}/{{prop.useCount}} uses">
+
+
+                                            {{range.label}}({{range.count *100 / prop.useCount | number:0}}%)
+                                        </div>
+                                        <div class="progress-bar progress-bar-info " role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             class="progress-bar-success"
+                                             ng-if="prop.semantic"
+                                             style="width: 100%;"
+                                             title="{{'EXTRACTED_FROM_SEMANTIC' | translate }}">
+
+                                            {{prop.rangeForSemantic.label}} ({{'SEMANTIC'|translate}})
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <button ng-if=" (main.propertyHandlers.length - main.limit) > 0 " ng-click="main.incrementLimit()"
+                        class="btn btn-success moreButton"><i class="glyphicon glyphicon-chevron-down"></i>{{'SHOW' |
+                    translate}} {{main.pagination}} {{'MORE' | translate}} ( {{main.propertyHandlers.length - main.limit
+                    }} {{'REMAINING' | translate}} )
+                </button>
+                <hr/>
+
+            </div>
+
+            <div class="col-md-4">
+                <h2 in-view="main.setInfoboxOnScreen($inview)">Infobox</h2>
+                <hr>
+                <div id="infoholder" ng-class="{fijo: !main.infoboxOnScreen}" class="scroll-infobox">
+                    <!-- Title and thumbnail -->
+                    <table id="infoboxerInfobox2" class="infobox vcard  scroll-infobox" cellspacing="3"
+                           style="border-spacing:3px;width:22em;">
+                        <tr>
+                            <th colspan="2" class="fn"
+                                style="text-align:center;font-size:125%;font-weight:bold;background:transparent;text-align:center;;">
+                                {{main.pageName}}
+                            </th>
+                        </tr>
+                        <!--TBody of graphical thumbnail, only shown if config.thumbnail.activated = true -->
+                        <tbody ng-repeat="handler in main.propertyHandlers  | orderBy:main.sortInfobox"
+                               ng-if="main.config.thumbnail.activated">
+
+                        <!-- Thumbnails  are showed first -->
+                        <tr ng-repeat="value in handler.values"
+                            ng-if="(handler.propertyURI.indexOf(main.config.thumbnail.property) > -1 && $index==0)">
+                            <th style='text-align:center;padding-bottom:0.5em;'>
+
+                                <!-- If thumbnail is available, show it -->
+                                <div ng-if="handler.propertyURI.indexOf(main.config.thumbnail.property) > -1">
+                                    <a href=""><img ng-if="value.text.length>0"
+                                                    alt="Can't load image. No se puede cargar la imagen." width="150"
+                                                    ng-attr-title="{{'CLICK_TO_ADD_IMAGE' | translate }}"
+                                                    ng-src="{{value.text}}" ng-click="main.editingPhoto=true"/></a>
+                                    <!-- Else, show "add image" -->
+                                    <a href=""><img ng-if="value.text.length==0"
+                                                    ng-attr-title="{{'CLICK_TO_ADD_IMAGE' | translate }}" width="150"
+                                                    ng-src="/images/addimage.png" ng-click="main.editingPhoto=true"/></a>
+                                    <div class="input-group" style="margin:0px;" ng-if="main.editingPhoto">
+                                        <input class="form-control form-control-typeahead" ng-model="handler.values[0].text"
+                                               placeholder="{{'IMAGE_URL' | translate }}" type="text" autocomplete="false"/>
+                                      <span class="input-group-btn">
+                                      <button class="btn btn-success" type="button" ng-click="main.editingPhoto=false"><i
+                                              class="glyphicon glyphicon glyphicon-ok"></i></button>
+                                      </span>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- Thumbnail-descriptions are showed next -->
+                    <table id="infoboxerInfobox5" class="infobox vcard  scroll-infobox" cellspacing="3"
+                           style="border-spacing:3px;width:22em;">
+
+                        <!--TBody of graphical thumbnail, only shown if config.thumbnail.activated = true -->
+                        <tbody ng-repeat="handler in main.propertyHandlers  | orderBy:main.sortInfobox"
+                               ng-if="main.config.thumbnail.activated && main.config.thumbnail.description.length>0">
+
+                        <!-- Thumbnails and its descriptions are showed first -->
+                        <tr ng-repeat="value in handler.values"
+                            ng-if="(handler.propertyURI.indexOf(main.config.thumbnail.description) > -1)">
+                            <th style='text-align:center;padding-bottom:0.5em;'>
+                                {{value.text}}
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- Rest of properties -->
+                    <table id="infoboxerInfobox3" class="infobox vcard  scroll-infobox" cellspacing="3"
+                           style="border-spacing:3px;width:22em;">
+                        <tbody ng-repeat="handler in main.propertyHandlers  | orderBy:main.sortInfobox">
+                        <!-- If not thumbnail nor thumbnail-description, or thumbnail display is not activated-->
+                        <tr ng-repeat="value in handler.values"
+                            ng-if="value.text.length >  0 && (!main.config.thumbnail.activated ||
+                            (handler.propertyURI.indexOf(main.config.thumbnail.property) == -1 && handler.propertyURI.indexOf(main.config.thumbnail.description) == -1 ))">
+                            <th scope="row"
+                                style="text-align:left;background:transparent; padding-top:0.225em;line-height:1.1em; padding-right:0.5em;;">
+                                <a  ng-if="$index==0"
+                                        href="{{handler.propertyURI | URItoURL}}"
+                                   title="{{handler.propertyLabel}}" target="_blank">{{handler.propertyLabel}}</a>
+                            </th>
+                            <td style="vertical-align:middle;line-height:1.3em;;">
+                                <!--Link is shown only if type not undefinedn or XMLSchema or langString -->
+                                <span ng-if="value.type.indexOf('XMLSchema') != -1 || value.type.indexOf('langString') !=-1 || !value.type">{{value.text}}</span>
+                                <a ng-if="value.type.indexOf('XMLSchema') == -1 && value.type.indexOf('langString') == -1 && value.type"
+                                   href="{{value.text | textToResource}}" title="{{value.text}}" target="_blank">{{value.text}}</a>
+                            </td>
+                            <td>
+                           <span href="" ng-click="main.goToProperty(handler.propertyLabel)"><i
+                                   class="glyphicon glyphicon-pencil"></i></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table id="infoboxerInfobox4" class="infobox vcard floatLeft scroll-infobox" cellspacing="3"
+                           style="border-spacing:3px;width:22em;">
+
+                        <caption style="caption-side:bottom">
+
+
+                            <button type="submit" style="width:99%" class="btn btn-warning navbar-btn"
+                                    ng-click="main.openFinishModal()"><i class="glyphicon glyphicon-export"></i>{{
+                                'SAVE_AND_FINISH' | translate}}
+                            </button>
+
+                            <button type="submit" style="width:99%" class="btn btn-info navbar-btn"
+                                    ng-click="main.showPopulate= !main.showPopulate"><i
+                                    class="glyphicon glyphicon-export"></i>{{ 'POPULATE_FROM_WIKIPEDIA' | translate}}
+                            </button>
+
+                            <div class="input-group" ng-show="main.showPopulate">
+                                <input type="text" class="form-control" ng-model="main.wikipediaInstance"
+                                       placeholder="{{ 'POPULATE_PLACEHOLDER' | translate}}">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="main.loadWikipediaInstance()">{{ 'POPULATE' |
+                translate}}
+            </button>
+          </span>
+                            </div><!-- /input-group -->
+
+                            <button class="btn btn-primary" style="width:99%;" ng-click="main.openInfoboxModal()"><i
+                                    class="glyphicon glyphicon-export"></i>{{ 'EXPORT_INFOBOX' | translate}}
+                            </button>
+
+                            <button class="btn btn-primary" style="width:49%; margin-top: 5px;"
+                                    ng-click="main.openHTMLmodal()"><i class="glyphicon glyphicon-export"></i>{{
+                                'EXPORT_HTML' | translate}}
+                            </button>
+                            <button class="btn btn-primary" style="width:49%; margin-top: 5px;"
+                                    ng-click="main.openRDFmodal()"><i class="glyphicon glyphicon-export"></i>{{
+                                'EXPORT_RDF' | translate}}
+                            </button>
+
+                        </caption>
+
+
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--<p class="bottomright"><b>GUI Mode:</b> Complete<br/><b>{{ 'USER' | translate}}:</b> {{ main.getUsername()}}  (ID {{main.getSessionId() }})</p>-->
+
+   

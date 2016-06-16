@@ -1,0 +1,73 @@
+
+<!-- RDF Export screen -->
+<div class="modal-body modal-scroll" ng-show="modalOptions.mode==0">
+	<div class="survey-message">{{modalOptions.infobox_export_screen.message}}</div>
+	<!-- if serverside = true -> Multiple categories. Else, only the first -->
+	<div ng-repeat="category in modalOptions.infobox_export_screen.categoryList" ng-if="($index==0 || modalOptions.serverside)">
+		<b ng-if="modalOptions.serverside"> {{'INFOBOX_FOR' | translate}} {{category.name }}: </b>
+		<b ng-if="!modalOptions.serverside">{{'INFOBOX_CODE' | translate}}: </b>
+		<pre ng-attr-id="{{'infoboxText-' + $index}}"  >{{modalOptions.infobox_export_screen.resultInfoboxList[$index]}}</pre>
+		<button ng-show="modalOptions.mode==0" class="btn btn-primary" style="font-size:120%" ngclipboard data-clipboard-target="#infoboxText-{{$index}}">
+		   <i class="glyphicon glyphicon-copy"  style="font-size:120%"  ></i>
+		   <span   style="font-size:120%">{{'COPY' | translate}}</span>
+		</button>
+	</div>
+	
+		<!-- Trigger -->
+	<!--<p style="margin:5px;padding:5px;text-size:20px;">{{modalOptions.infobox_export_screen.footer}}</p>-->
+	
+</div>
+
+
+
+<!-- Survey points screen -->
+<div class="modal-body" ng-show="modalOptions.mode==1">
+	<div class="survey-message">{{modalOptions.survey_points_screen.message}}</div>
+	<div class="panel panel-default" >
+		<div ng-repeat-start="question in modalOptions.survey_points_screen.questions" class="panel-heading"><span class="question-title">{{ question.title }}</span></div>
+		<div ng-repeat-end class="panel-body">
+				<div class="col-md-4 text-center"  ng-click="question.value = 0">
+					<i class="fa fa-frown-o rating-smiley" ng-class="{'rating-smiley-active':question.value == 0}"></i>
+					<br/>{{question.footer[0]}}
+				</div>
+				<div class="col-md-4 text-center" ng-click="question.value = 1" >
+					<i class="fa fa-meh-o rating-smiley " ng-class="{'rating-smiley-active':question.value == 1}"></i>
+					<br/>{{question.footer[1]}}
+				</div>
+				<div class="col-md-4 text-center"  ng-click="question.value = 2">
+					<i class="fa fa-smile-o rating-smiley" ng-class="{'rating-smiley-active':question.value == 2}"></i>
+					<br/>{{question.footer[2]}}
+				</div>
+			</div>
+	</div>
+</div>
+
+<!-- Survey free text screen -->
+<div class="modal-body" ng-show="modalOptions.mode==2">
+	<div class="survey-message">{{modalOptions.survey_free_screen.message}}</div>
+		<div class="panel-body">
+			<textarea maxlength="255" style="width:100%" rows="10" ng-model="modalOptions.survey_free_screen.text"></textarea>
+		</div>
+
+</div>
+
+<!-- Congratulations screen -->
+<div class="modal-body" ng-show="modalOptions.mode==3">
+	<div class="survey-message">{{modalOptions.congrats_screen.message}}</div>
+	{{modalOptions.congrats_screen.submessage}}
+</div>
+
+<!-- Modal Footer, common for all screens -->
+<p style="margin:5px;padding:5px;text-size:20px;"></p>
+<div class="modal-footer" ng-show="!modalOptions.onlyInfobox">
+
+	<button type="button" class="btn" style="font-size:120%" ng-class="{'btn-success':modalOptions.mode<0, 'btn-danger':modalOptions.mode==0}"
+	data-ng-click="modalOptions.next()">{{ modalOptions.nextText[modalOptions.mode] }}</button>
+
+</div>
+<div class="modal-footer" ng-show="modalOptions.onlyInfobox">
+
+	<button type="button" class="btn btn-danger" style="font-size:120%" 
+	data-ng-click="modalOptions.close()">Cerrar</button>
+
+</div>

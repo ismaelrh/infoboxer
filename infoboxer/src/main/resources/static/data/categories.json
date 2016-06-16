@@ -1,0 +1,86 @@
+[
+
+  {
+    "_id": "<http://dbpedia.org/ontology/Person>",
+    "name": "Person",
+    "children":
+    [
+      {
+        "_id": "<http://dbpedia.org/ontology/Artist>",
+        "name": "Artist",
+        "children": [
+          {
+            "_id": "<http://dbpedia.org/ontology/Actor>",
+            "name": "Actor"
+          },
+          {
+            "_id": "<http://dbpedia.org/ontology/MusicalArtist>",
+            "name": "Musical Artist"
+          },
+          {
+            "_id": "<http://dbpedia.org/ontology/Painter>",
+            "name": "Painter"
+          }
+
+        ]
+      },
+      {
+        "_id": "<http://dbpedia.org/ontology/Athlete>",
+        "name": "Athlete",
+        "children": [
+          {
+            "_id": "<http://dbpedia.org/ontology/BasketballPlayer>",
+            "name": "Basketball Player"
+          },
+          {
+            "_id": "<http://dbpedia.org/ontology/SoccerPlayer>",
+            "name": "Soccer Player"
+          },
+          {
+            "_id": "<http://dbpedia.org/ontology/TennisPlayer>",
+            "name": "Tennis Player"
+          },
+          {
+            "_id": "<http://dbpedia.org/ontology/Bodybuilder>",
+            "name": "Bodybuilder"
+          }
+        ]
+      },
+      {
+        "_id": "<http://dbpedia.org/ontology/Celebrity>",
+        "name": "Celebrity",
+        "children": []
+      },
+      {
+        "_id": "<http://dbpedia.org/ontology/Journalist>",
+        "name": "Journalist",
+        "children": []
+      },
+      {
+        "_id": "<http://dbpedia.org/ontology/Politician>",
+        "name": "Politician",
+        "children": [
+          {
+            "_id": "<http://dbpedia.org/ontology/Governor>",
+            "name": "Governor"
+          },
+          {
+            "_id": "<http://dbpedia.org/ontology/President>",
+            "name": "President"
+          }
+        ]
+      },
+      {
+        "_id": "<http://dbpedia.org/ontology/Scientist>",
+        "name": "Scientist",
+        "children": []
+      },
+      {
+        "_id": "<http://dbpedia.org/ontology/Writer>",
+        "name": "Writer",
+        "children": []
+      }
+
+    ]
+  }
+]

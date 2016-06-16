@@ -1,0 +1,15 @@
+
+
+<div class="alert"  ng-repeat="alert in list" 
+					ng-class="{'alert-success':alert.type==='success',
+							  'alert-info':alert.type==='info',
+							  'alert-warning':alert.type==='warning',
+							  'alert-danger':alert.type==='danger'}" 
+				   style="margin-bottom:5px;">
+
+	<!-- Remove button -->
+	<a ng-click="remove($index)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	<!-- Alert content -->
+  	<strong>{{alert.title}}</strong> {{alert.message}}
+
+</div>

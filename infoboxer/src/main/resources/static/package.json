@@ -1,0 +1,12 @@
+{
+  "name": "infoboxer",
+   "version": "0.0.0",
+   "description": "infoboxer",
+  "dependencies": {
+    "bower": "*"
+  },
+  "scripts": {
+    "postinstall": "bower install"
+
+    }
+}

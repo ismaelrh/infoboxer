@@ -1,0 +1,42 @@
+/**
+CSS for wiki.html
+*/
+
+#wikiTitle {
+    text-align: center;
+}
+
+.wikiContent {
+    margin: 0 auto;
+    width: 650px;
+}
+
+#personText {
+    font-size: 1.4em;
+    text-align: center;
+}
+
+#infoboxArea {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+#infoboxArea #counter {
+    float: right;
+    font-size: 1.1em;
+
+}
+
+#infoboxArea textarea {
+    width: 100%;
+    resize: none;
+}
+
+#infoboxArea button {
+    float: right;
+    margin-left: 5px;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}

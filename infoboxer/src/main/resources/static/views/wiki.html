@@ -1,0 +1,70 @@
+<h1 id="wikiTitle">Wikimedia Infoboxer simulator</h1>
+
+<div class="wikiContent" ng-if="!ctrl.finished">
+    <div class="jumbotron">
+        <div class="container text-left">
+            <h3>Introduction</h3>
+            <br/>You have to complete a half-filled provided Wikimedia Infobox code with the information about the
+            person "<b>{{ctrl.person}}</b>".
+            <br/>As you see, on the code there are <i>'labelN'</i> and <i>'dataN'</i> keys. Each label specifies the
+            name of the
+            property to be described (for example 'Birth place') and its data (the one with the same number) contains
+            the value of that property (for example <i>New York</i>).
+            <br/><br/>
+
+            The value can be:
+            <ul>
+                <li>A <b>plain text</b> value. E.g. <i>New York</i></li>
+                <li>A <b>reference to a Wikipedia page</b>. E.g. <i>[[ https://en.wikipedia.org/wiki/New_York ]]</i>  ( surrounded
+                    by "[[" and "]]").</li>
+            </ul>
+
+
+            <h3>What to do</h3>
+            <br/>In this hit you have to replace as many INSERT_TEXT values as you can with the correct value for the
+            person within {{ctrl.availableMinutes}} minutes.
+            You can search on Wikipedia or wherever you want.
+
+            <br/><br/>
+            <b>Please try to insert references to  Wikipedia pages whenever possible.</b> If a Wikipedia page for that data doesn't exist, then
+            insert a plain text value.
+
+
+            <br/><br/>To do so:
+            <ol>
+                <li>Enter a username and press Start when you are ready.</li>
+                <li>Replace INSERT_TEXT with the appropriate values.</li>
+                <li>When the time is about {{ctrl.availableMinutes}} minutes, please press the "Submit" button.</li>
+                <li>Go back to Mechanical Turk page and insert the username you used.</li>
+            </ol>
+            <br/>
+
+
+        </div>
+        <span id="personText"><strong>Person: </strong> {{ctrl.person}}</span>
+    </div>
+    <div id="usernameField">
+        <p>Please, enter a username <i>(This will be used later to identify your HIT. For example, your amazon email.)</i></p>
+        <form>
+            <input type="text" ng-model="ctrl.username"/>
+            <button type="submit" ng-click="ctrl.start()">Start</button>
+        </form>
+    </div>
+
+
+    <div id="infoboxArea">
+        <span id="counter">Used time: {{ctrl.usedTime | secondsToDateTime | date:"mm 'min. 'ss ' sec.'"}}</span>
+        <textarea ng-disabled="!ctrl.counting" rows="20" ng-model="ctrl.infobox"></textarea>
+        <button ng-disabled="!ctrl.counting" ng-click="ctrl.submit()">Submit</button>
+        <button ng-click="ctrl.reset()" ng-disabled="!ctrl.counting">Reset</button>
+    </div>
+</div>
+<div class="wikiContent" ng-if="ctrl.finished">
+    <div class="jumbotron">
+        <div class="container text-left">
+            <h2>Thank you</h2>
+            Now go back to Amazon Mechanical Turk HIT page and enter the username (<i>{{ctrl.username}}</i>) you
+            provided here.
+        </div>
+    </div>
+</div>

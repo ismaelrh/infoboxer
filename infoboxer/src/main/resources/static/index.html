@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Infoboxer</title>
+    <meta name="description" content="Infoboxer frontend">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/wiki.css">
+    <!--<link rel="stylesheet" href="//bits.wikimedia.org/en.wikipedia.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*">-->
+    <!-- endbuild -->
+</head>
+<body id="infoboxer">
+
+
+<!-- Add your site or application content here -->
+
+
+<ng-view></ng-view>
+
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<!--<script>
+ !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+   (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+   r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+ }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ ga('create', 'UA-XXXXX-X');
+ ga('send', 'pageview');
+</script>-->
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/jquery.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/spin.js/spin.js"></script>
+<script src="bower_components/angular-spinner/angular-spinner.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/angular-inview/angular-inview.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/angular-typeahead/angular-typeahead.js"></script>
+<script src="bower_components/clipboard/dist/clipboard.js"></script>
+<script src="bower_components/ngclipboard/dist/ngclipboard.js"></script>
+<script src="bower_components/angular-deckgrid/angular-deckgrid.js"></script>
+<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+
+<script src="scripts/dataStructures/Category.js"></script>
+<script src="scripts/dataStructures/Range.js"></script>
+<script src="scripts/dataStructures/Value.js"></script>
+<script src="scripts/dataStructures/Property.js"></script>
+<script src="scripts/dataStructures/PropertyHandler.js"></script>
+<script src="scripts/dataStructures/StringWrapper.js"></script>
+
+<script src="scripts/app.js"></script>
+<script src="scripts/services/ConfigService.js"></script>
+<script src="scripts/filters/Filters.js"></script>
+<script src="scripts/services/ToolsService.js"></script>
+<script src="scripts/services/DataObtainingService.js"></script>
+<script src="scripts/services/MonocategoryService.js"></script>
+<script src="scripts/services/MulticategoryService.js"></script>
+<script src="scripts/services/OutputDataService.js"></script>
+<script src="scripts/services/InfoModalService.js"></script>
+<script src="scripts/services/AppStateService.js"></script>
+<script src="scripts/services/StatsService.js"></script>
+<script src="scripts/services/UserFinishModalService.js"></script>
+<script src="scripts/services/AboutModalService.js"></script>
+<script src="scripts/services/ConfigModalService.js"></script>
+
+<script src="scripts/interceptors/NetworkErrorsInterceptor.js"></script>
+<script src="scripts/directives/alertList.js"></script>
+<script src="scripts/directives/rangesTypeahead.js"></script>
+<script src="scripts/directives/categoriesTypeahead.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/login.js"></script>
+<script src="scripts/controllers/wiki.js"></script>
+<script src="scripts/directives/recursiveTypeahead.js"></script>
+<script>
+
+    angular.element(document).ready(function () {
+
+
+        $.get('/data/config.json', function (configData) {
+
+            angular.module('infoboxer').config(['ConfigServiceProvider', function (ConfigServiceProvider) {
+                ConfigServiceProvider.config(configData);
+            }]);
+
+            angular.bootstrap('#infoboxer', ['infoboxer']);
+        });
+    });
+
+</script>
+
+<!-- endbuild -->
+</body>
+
+</html>

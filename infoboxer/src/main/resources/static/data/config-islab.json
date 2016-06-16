@@ -1,0 +1,40 @@
+{
+  "endpoint": {
+    "base": "http://localhost:8080",
+    "data": "/infoboxer",
+    "suggestions": "/suggestions",
+    "fromWikipedia": "/fromWikipedia",
+    "generateInfobox": "/infobox/generate",
+    "stats": {
+      "newSession": "/stats/newSession",
+      "newAction": "/stats/newAction",
+      "closeSession": "/stats/closeSession",
+      "saveInfobox": "/stats/saveInfobox",
+      "saveRdf": "/stats/saveRdf",
+      "saveSurvey": "/stats/saveSurvey",
+      "wikimediaTime": "/stats/wikimediaTime"
+    }
+  },
+  "stats": {
+    "activated": false
+  },
+  "thumbnail": {
+    "activated": true,
+    "property": "http://xmlns.com/foaf/0.1/thumbnail",
+    "description": "http://purl.org/dc/elements/1.1/description"
+  },
+  "infoboxCode": {
+    "format": "wikipedia",
+    "serverside": false
+  },
+  "categoriesRestrictions": {
+    "restrictByNumber": true,
+    "maxNumber": 3,
+    "restrictByWhitelist": false,
+    "whitelist": []
+  },
+  "resourcePrefix":{
+    "en": "http://islab.dico.unimi.it/iimb/abox.owl#",
+    "default":  "http://islab.dico.unimi.it/iimb/abox.owl#"
+  }
+}
