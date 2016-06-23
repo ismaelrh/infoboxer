@@ -59,17 +59,17 @@ public class StatsDatabaseManager {
      */
     private void connectToDB(){
 
-        System.out.println("conectin");
+
 
         try {
 
             DriverManager.setLoginTimeout(0);
-            System.out.println("conectin2");
+
             connection = DriverManager
                     .getConnection("jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE, USERNAME, PASSWORD);
-            System.out.println("conectin3");
+
             connection.setAutoCommit(false);
-            System.out.println("conectin4");
+
 
         } catch (SQLException e) {
             System.err.println("[STATS] Connection to database Failed! Check output console");
