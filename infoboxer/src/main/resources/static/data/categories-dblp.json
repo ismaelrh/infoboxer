@@ -1,0 +1,30 @@
+[
+  {
+    "_id":"<http://lsdis.cs.uga.edu/projects/semdis/opus#Book>",
+    "name":"Book"
+  },
+  {
+    "_id":"<http://lsdis.cs.uga.edu/projects/semdis/opus#Proceedings>",
+    "name":"Proceedings"
+  },
+  {
+    "_id":"<http://lsdis.cs.uga.edu/projects/semdis/opus#Article_in_Proceedings>",
+    "name":"ArticleinProceedings"
+  },
+  {
+    "_id":"<http://lsdis.cs.uga.edu/projects/semdis/opus#Webpage>",
+    "name":"Webpage"
+  },
+  {
+    "_id":"<http://lsdis.cs.uga.edu/projects/semdis/opus#Article>",
+    "name":"Article"
+  },
+  {
+    "_id":"<http://lsdis.cs.uga.edu/projects/semdis/opus#Masters_Thesis>",
+    "name":"MastersThesis"
+  },
+  {
+    "_id":"<http://lsdis.cs.uga.edu/projects/semdis/opus#Doctoral_Dissertation>",
+    "name":"DoctoralDissertation"
+  }
+]
