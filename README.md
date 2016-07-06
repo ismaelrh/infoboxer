@@ -11,6 +11,16 @@ Please visit the [Project webpage](http://sid.cps.unizar.es/Infoboxer) for more 
 
 ![System screenshot](img/screenshot.png)
 
+##Used technologies
+* AngularJS
+* Bootstrap
+* Spring Framework
+* OWLAPI
+* HermiT
+* Jena Fuseki
+* NPM
+* MySQL
+
 ##User and technical manuals
 * **User manual**: pages 105 to 111 of the report.
 * **How to run the project**: pages 61 to 66 of the report.
